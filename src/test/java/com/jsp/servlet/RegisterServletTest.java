@@ -2,7 +2,11 @@ package com.jsp.servlet;
 
 import com.jsp.db.CRUDUsers;
 import com.jsp.model.User;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,17 +22,28 @@ import java.util.Collections;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class RegisterServletTest {
+    private HttpServletRequest request;
+    private HttpServletResponse response;
+    private HttpSession session;
+    private RequestDispatcher requestDispatcher;
+    private CRUDUsers crudUsers;
 
+    @Before
+    public void init(){
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);
+        session = mock(HttpSession.class);
+        requestDispatcher = mock(RequestDispatcher.class);
+        crudUsers = mock(CRUDUsers.class);
+    }
+
+    @InjectMocks
+    RegisterServlet registerServlet;
     @Test
     public void testDoPost() throws ServletException, IOException {
         //given
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        HttpSession session = mock(HttpSession.class);
-        CRUDUsers crudUsers = mock(CRUDUsers.class);
-        RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
-
         String name = "Test";
         String surname = "Test";
         String email = "test2@mail.ru";
@@ -43,7 +58,7 @@ public class RegisterServletTest {
         when(request.getRequestDispatcher("jsp/index.jsp")).thenReturn(requestDispatcher);
 
         when(request.getSession()).thenReturn(session);
-        new RegisterServlet().doPost(request, response);
+        registerServlet.doPost(request, response);
 
         //then
         verify(request , atLeast(1)).getRequestDispatcher("jsp/index.jsp");

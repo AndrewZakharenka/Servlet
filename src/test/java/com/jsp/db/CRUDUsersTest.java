@@ -18,18 +18,17 @@ public class CRUDUsersTest {
         ArrayList<User> users = CRUDUsers.getAllUsers();
 
         //then
-        if (users.isEmpty()) {
-            assertTrue(false);
-        }else {
-            assertTrue(true);
-        }
+        assertFalse(users.isEmpty());
     }
 
     @Test
     public void testSaveUser() {
         //given
+        String name = "TestSave";
+        String surname = "TestSave";
         String email = "testSave@mail.ru";
-        User user = new User("TestSave", "TestSave", email, "test");
+        String password = "test";
+        User user = new User(name, surname, email, password);
 
         //when
         user = CRUDUsers.saveUser(user);
@@ -46,9 +45,9 @@ public class CRUDUsersTest {
         String name = "Test";
 
         //when
-        Optional<User> user = Optional.of(CRUDUsers.getUser(email));
+        User user = CRUDUsers.getUser(email);
 
         //then
-        assertEquals(name, user.get().getName());
+        assertEquals(name, user.getName());
     }
 }

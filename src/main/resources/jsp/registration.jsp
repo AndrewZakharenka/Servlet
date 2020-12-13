@@ -44,14 +44,6 @@
                     <c:if test="${ErrorFlag == 'True'}">
                         <p><c:out value="${Error}"></c:out></p>
                     </c:if>
-
-<%--                    <%--%>
-<%--                        if ("True".equals(request.getSession().getAttribute("ErrorFlag"))){--%>
-<%--                    %>--%>
-<%--                    <p><%= request.getSession().getAttribute("Error") %></>--%>
-<%--                    <%--%>
-<%--                        }--%>
-<%--                    %>--%>
                 </form>
             </div>
             <div class="col-sm">

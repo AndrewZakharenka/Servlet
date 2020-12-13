@@ -10,13 +10,14 @@
     <title>Title</title>
 </head>
 <body>
-
-<c:if test="${authorized == 'True'}">
-    <jsp:include page="navbar.jsp"></jsp:include>
-</c:if>
-<c:if test="${authorized != 'True'}">
-    <jsp:include page="login.jsp"></jsp:include>
-</c:if>
+<c:choose>
+    <c:when test="${authorized == 'True'}">
+        <jsp:include page="navbar.jsp"></jsp:include>
+    </c:when>
+    <c:when test="${authorized != 'True'}">
+        <jsp:include page="login.jsp"></jsp:include>
+    </c:when>
+</c:choose>
 
 </body>
 </html>

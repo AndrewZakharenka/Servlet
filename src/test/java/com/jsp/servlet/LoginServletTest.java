@@ -1,7 +1,11 @@
 package com.jsp.servlet;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,14 +14,25 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+@RunWith(MockitoJUnitRunner.class)
 public class LoginServletTest extends Mockito {
+    private HttpServletRequest request;
+    private HttpServletResponse response;
+    private HttpSession session;
+
+    @Before
+    public void init(){
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);
+        session = mock(HttpSession.class);
+    }
+
+    @InjectMocks
+    LoginServlet loginServlet;
 
     @Test
     public void testDoPost() throws ServletException, IOException {
         //given
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        HttpSession session = mock(HttpSession.class);
         String email = "test@mail.ru";
         String password = "test";
 
@@ -25,10 +40,9 @@ public class LoginServletTest extends Mockito {
         when(request.getParameter("Email")).thenReturn(email);
         when(request.getParameter("Password1")).thenReturn(password);
         when(request.getSession()).thenReturn(session);
-        new LoginServlet().doPost(request, response);
+        loginServlet.doPost(request, response);
 
         //then
         verify(request, times(4)).getSession();
-//        assertEquals("False", request.getSession().getAttribute("ErrorFlag"));
     }
 }

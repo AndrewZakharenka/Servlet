@@ -13,20 +13,20 @@
     <title>My profile</title>
 </head>
 <body>
-
-<c:if test="${authorized == 'True'}">
-    <script>$.get("http://localhost:8080/profile");</script>
-    <jsp:include page="navbar.jsp"></jsp:include>
-    <ul class="list-group">
-        <li class="list-group-item">Id: <c:out value="${User.id}"></c:out></li>
-        <li class="list-group-item">Name: <c:out value="${User.name}"></c:out></li>
-        <li class="list-group-item">Surname: <c:out value="${User.surname}"></c:out></li>
-        <li class="list-group-item">Email: <c:out value="${User.email}"></c:out></li>
-    </ul>
-</c:if>
-<c:if test="${authorized != 'True'}">
-    <jsp:include page="login.jsp"></jsp:include>
-</c:if>
-
+<c:choose>
+    <c:when test="${authorized == 'True'}">
+        <script>$.get("http://localhost:8080/profile");</script>
+        <jsp:include page="navbar.jsp"></jsp:include>
+        <ul class="list-group">
+            <li class="list-group-item">Id: <c:out value="${User.id}"></c:out></li>
+            <li class="list-group-item">Name: <c:out value="${User.name}"></c:out></li>
+            <li class="list-group-item">Surname: <c:out value="${User.surname}"></c:out></li>
+            <li class="list-group-item">Email: <c:out value="${User.email}"></c:out></li>
+        </ul>
+    </c:when>
+    <c:when test="${authorized != 'True'}">
+        <jsp:include page="login.jsp"></jsp:include>
+    </c:when>
+</c:choose>
 </body>
 </html>
